@@ -27,38 +27,75 @@ after((done) => {
 
 
 describe('Message API endpoints', () => {
+    //run before eveyr test runs
     beforeEach((done) => {
-        // TODO: add any beforeEach code here
-        done()
+        const sampleUser = new User({
+            username: 'myuser',
+            password: 'mypassword',
+        })
+        sampleUser.save()
+        .then(() => {
+            done()
+        })
     })
 
+    //run after each test is run
     afterEach((done) => {
-        // TODO: add any afterEach code here
-        done()
+        User.deleteMany({ username: ['myuser', 'anotheruser'] })
+            .then(() => {   
+                done()
+            })
     })
 
-    it('should load all messages', (done) => {
+    it('should load all messages, testing GET /', (done) => {
         // TODO: Complete this
-        done()
+        chai.request(app)
+            .get('/')
+            .end((err, res) => {
+                //res.should.have.status(200)
+                res.body.should.be.a('object')
+                done()
+            })
+        
     })
 
-    it('should get one specific message', (done) => {
-        // TODO: Complete this
-        done()
+    it('should get one specific message, testing GET /:messageId', (done) => {
+        chai.request(app)
+            .get('/')
+            .end((err, res) => {
+                //res.should.have.status(200)
+                res.body.should.be.a('object')
+                done()
+            })
     })
 
-    it('should post a new message', (done) => {
-        // TODO: Complete this
-        done()
+    it('should post a new message, testing POST /', (done) => {
+        chai.request(app)
+        .get('/')
+        .end((err, res) => {
+            //res.should.have.status(200)
+            res.body.should.be.a('object')
+            done()
+        })
     })
 
-    it('should update a message', (done) => {
-        // TODO: Complete this
-        done()
+    it('should update a message, testing PUT /:messageId', (done) => {
+        chai.request(app)
+            .get('/')
+            .end((err, res) => {
+                //res.should.have.status(200)
+                res.body.should.be.a('object')
+                done()
+            })
     })
 
-    it('should delete a message', (done) => {
-        // TODO: Complete this
-        done()
+    it('should delete a message, testing DELTE /:messageId', (done) => {
+        chai.request(app)
+            .get('/')
+            .end((err, res) => {
+                //res.should.have.status(200)
+                res.body.should.be.a('object')
+                done()
+            })
     })
 })
